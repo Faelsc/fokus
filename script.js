@@ -1,23 +1,41 @@
 const html = document.querySelector('html')
 const focoBotao = document.querySelector('.app__card-button--foco')
 const curtoBotao = document.querySelector('.app__card-button--curto')
-const longoBt = document.querySelector('.app__card-button--longo')
+const longoBotao = document.querySelector('.app__card-button--longo')
 const banner = document.querySelector('.app__image')
 const titulo = document.querySelector('.app__title')
+const botoes = document.querySelectorAll('.app__card-button')
+const musicaFocoInput = document.querySelector('#alternar-musica')
+const musica = new Audio('sons/luna-rise-part-one.mp3')
+musica.loop = true
+
+musicaFocoInput.addEventListener('change', () => {
+    if(musica.paused) {
+        musica.play()
+    } else {
+        musica.pause()
+    }
+})
 
 focoBotao.addEventListener('click', () => {
     alterarContexto('foco')
+    focoBotao.classList.add('active')
 })
 
 curtoBotao.addEventListener('click', () => {
     alterarContexto('descanso-curto')
+    curtoBotao.classList.add('active')
 })
 
-longoBt.addEventListener('click', () => {
+longoBotao.addEventListener('click', () => {
     alterarContexto('descanso-longo')
+    longoBotao.classList.add('active')
 })
 
 function alterarContexto(contexto) {
+    botoes.forEach(function (contexto){
+        contexto.classList.remove('active')
+    })
     html.setAttribute('data-contexto', contexto)
     banner.setAttribute('src', `./imagens/${contexto}.png`)
     switch (contexto) {
